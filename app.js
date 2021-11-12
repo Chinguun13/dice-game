@@ -9,22 +9,23 @@ var scores = [0, 0];
 var roundScore = 0;
 
 /* Shoonii ali talaaraa buusniig hadgalah huvisagch heregtei, 1-6 gsn utgiig ene huvisagch sanagsargui uulgej ogno */
-var dice = Math.floor(Math.random() * 6) + 1;
+var diceNumber = Math.floor(Math.random() * 6) + 1;
 
-//         <div class="player-score" id="score-0">43</div>
-// document.querySelector("#score-0").textContent = dice;
-
-//         <div class="player-score" id="score-1">43</div>
-// document.querySelector("#score-1").textContent = dice;
-// document.querySelector("#score-1").innerHTML = "<em>Yes!<em>";
+/*     <div class="player-score" id="score-1">43</div>
+document.querySelector("#score-1").textContent = dice;
+document.querySelector("#score-1").innerHTML = "<em>Yes!<em>"; */
 
 // Programm ehlehed beltgey
-document.querySelector("#score-0").textContent = 0;
-document.querySelector("#score-1").textContent = 0;
+document.getElementById("score-0").textContent = "0";
+document.getElementById("score-1").textContent = "0";
 
-document.querySelector("#current-0").textContent = 0;
-document.querySelector("#current-1").textContent = 0;
+document.getElementById("current-0").textContent = "0";
+document.getElementById("current-1").textContent = "0";
 
 document.querySelector(".dice").style.display = "none";
+document.querySelector(".btn-roll").addEventListener("click", shooShid);
 
-console.log("Shoo ni: " + dice);
+function shooShid() {
+  var diceNumber = Math.floor(Math.random() * 6) + 1;
+  alert("Shoo buulaa: " + diceNumber);
+}
