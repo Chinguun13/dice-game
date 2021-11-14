@@ -1,3 +1,5 @@
+var isNewGame;
+
 // Togloomiin buh gazart ashiglagdah global huvisangchdiig end zarlay
 var activePlayer;
 // 2 toglogchiin tsugluulsan onoonuud
@@ -13,6 +15,8 @@ initGame();
 
 // Togloomiig shineer ehlehed beltgene.
 function initGame() {
+  //Togloom ehellee gedeg tuluvt oruulna
+  isNewGame = true;
   /* Toglogchiin eeljiig hadgalah huvisang */
   /* 1-r toglogchiig 0, 2-r toglogchiig 1 */
   activePlayer = 0;
@@ -52,73 +56,85 @@ document.querySelector("#score-1").innerHTML = "<em>Yes!<em>"; */
 
 // Shoog shidej eventlistener
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  // 1-6 dotorh sanamsargui neg too gargaj avna
-  var diceNumber = Math.floor(Math.random() * 6) + 1;
+  if (isNewGame === true) {
+    // 1-6 dotorh sanamsargui neg too gargaj avna
+    var diceNumber = Math.floor(Math.random() * 6) + 1;
 
-  // Shoonii zurgiin web deer gargaj irne.
-  diceDom.style.display = "block";
+    // Shoonii zurgiin web deer gargaj irne.
+    diceDom.style.display = "block";
 
-  // Buusan sanamsargui toond hargalzah shoonii zurgiig web deer gargaj irne.
-  diceDom.src = "dice-" + diceNumber + ".png";
+    // Buusan sanamsargui toond hargalzah shoonii zurgiig web deer gargaj irne.
+    diceDom.src = "dice-" + diceNumber + ".png";
 
-  // Buusan too ni 1 ees yalgaatai bol idevhtei toglogchiin eeljiin onoog nemegduulne
-  if (diceNumber !== 1) {
-    // 1-ees yalgaatai too buulaa.
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
+    // Buusan too ni 1 ees yalgaatai bol idevhtei toglogchiin eeljiin onoog nemegduulne
+    if (diceNumber !== 1) {
+      // 1-ees yalgaatai too buulaa.
+      roundScore = roundScore + diceNumber;
+      document.getElementById("current-" + activePlayer).textContent =
+        roundScore;
+    } else {
+      // 1 buusan tul toglogchiin eeljiin ene hesegt solij ogno
+      // Ene toglogchiin eeljindee tsugluulsan onoog 0 bolgon
+      switchToNextPlayer();
+
+      // var obj = {
+      //   name: "amraa",
+      //   job: "programmer",
+      //   address: {
+      //     city: "ub",
+      //     country: "mn",
+      //   },
+      // };
+
+      // obt.address.city;
+
+      // if (activePlayer === 0) {
+      //   activePlayer = 1;
+      // } else {
+      //   activePlayer = 0;
+      // }
+    }
   } else {
-    // 1 buusan tul toglogchiin eeljiin ene hesegt solij ogno
-    // Ene toglogchiin eeljindee tsugluulsan onoog 0 bolgon
-    switchToNextPlayer();
-
-    // var obj = {
-    //   name: "amraa",
-    //   job: "programmer",
-    //   address: {
-    //     city: "ub",
-    //     country: "mn",
-    //   },
-    // };
-
-    // obt.address.city;
-
-    // if (activePlayer === 0) {
-    //   activePlayer = 1;
-    // } else {
-    //   activePlayer = 0;
-    // }
+    alert("Togloom duussan bna. NEW GAME tovchiig darj shineer ehlene uu");
   }
 });
 
 // HOLD tovchnii eventlistener
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  // Ug toglogchiin tsugluulsan eeljiin onoog global onoon deer ni nemj ogno.
-  // var scores = [0, 0];
+  if (isNewGame === true) {
+    // Ug toglogchiin tsugluulsan eeljiin onoog global onoon deer ni nemj ogno.
+    // var scores = [0, 0];
 
-  // if (activePlayer === 0) {
-  //   scores[0] = scores[0] + roundScore[0];
-  // } else {
-  //   scores[1] = scores[1] + roundScore[1];
-  // } xiamian de yiyand
+    // if (activePlayer === 0) {
+    //   scores[0] = scores[0] + roundScore[0];
+    // } else {
+    //   scores[1] = scores[1] + roundScore[1];
+    // } xiamian de yiyand
 
-  scores[activePlayer] = scores[activePlayer] + roundScore;
+    scores[activePlayer] = scores[activePlayer] + roundScore;
 
-  // Delgets deer onoog ni oorchilno
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
+    // Delgets deer onoog ni oorchilno
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
 
-  // Ug toglogch hojson esehiig (onoog ni 100-s ih eseh) shalgah
-  if (scores[activePlayer] >= 20) {
-    document.getElementById("name-" + activePlayer).textContent = "Winner!!";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.remove("active");
+    // Ug toglogch hojson esehiig (onoog ni 100-s ih eseh) shalgah
+    if (scores[activePlayer] >= 20) {
+      // Togloomiig duussan tuluvt oruulna
+      isNewGame = false;
+
+      document.getElementById("name-" + activePlayer).textContent = "Winner!!";
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.remove("active");
+    } else {
+      // Toglogchiin eeljiig colino
+      switchToNextPlayer();
+    }
   } else {
-    // Toglogchiin eeljiig colino
-    switchToNextPlayer();
+    alert("Togloom duussan bna. NEW GAME tovchiig darj shineer ehlene uu");
   }
 });
 
