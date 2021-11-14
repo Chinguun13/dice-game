@@ -1,28 +1,54 @@
-/* Toglogchiin eeljiig hadgalah huvisang */
-/* 1-r toglogchiig 0, 2-r toglogchiig 1 */
-var activePlayer = 0;
+// Togloomiin buh gazart ashiglagdah global huvisangchdiig end zarlay
+var activePlayer;
+// 2 toglogchiin tsugluulsan onoonuud
+var scores;
+// Idevhtei toglogchiin tsugluulj baigaa eeljiin onoo
+var roundScore;
 
-/* Toglogchiin tsugluulsan hadgalah huvisagch */
-var scores = [0, 0];
+// Shoonii zuriig uzuuleh element DOM-oos haij olood end hadgaliy
+var diceDom = document.querySelector(".dice");
 
-/* Toglogchiin eeljiig tsugluulj baigaa onoog hadgalah huvisagch */
-var roundScore = 0;
+// Togloomiig ehluulne
+initGame();
 
-/* Shoonii ali talaaraa buusniig hadgalah huvisagch heregtei, 1-6 gsn utgiig ene huvisagch sanagsargui uulgej ogno */
+// Togloomiig shineer ehlehed beltgene.
+function initGame() {
+  /* Toglogchiin eeljiig hadgalah huvisang */
+  /* 1-r toglogchiig 0, 2-r toglogchiig 1 */
+  activePlayer = 0;
 
-/*     <div class="player-score" id="score-1">43</div>
+  /* Toglogchiin tsugluulsan hadgalah huvisagch */
+  scores = [0, 0];
+
+  /* Toglogchiin eeljiig tsugluulj baigaa onoog hadgalah huvisagch */
+  roundScore = 0;
+
+  /* Shoonii ali talaaraa buusniig hadgalah huvisagch heregtei, 1-6 gsn utgiig ene huvisagch sanagsargui uulgej ogno */
+
+  /*     <div class="player-score" id="score-1">43</div>
 document.querySelector("#score-1").textContent = dice;
 document.querySelector("#score-1").innerHTML = "<em>Yes!<em>"; */
 
-// Programm ehlehed beltgey
-document.getElementById("score-0").textContent = "0";
-document.getElementById("score-1").textContent = "0";
+  // Programm ehlehed beltgey
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
 
-document.getElementById("current-0").textContent = "0";
-document.getElementById("current-1").textContent = "0";
+  // Toglogchidin neriig butsaaj gargah
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
 
-var diceDom = document.querySelector(".dice");
-diceDom.style.display = "none";
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("winner");
+
+  document.querySelector(".player-0-panel").classList.remove("active");
+  document.querySelector(".player-1-panel").classList.remove("active");
+
+  document.querySelector(".player-0-panel").classList.add("active");
+
+  diceDom.style.display = "none";
+}
 
 // Shoog shidej eventlistener
 document.querySelector(".btn-roll").addEventListener("click", function () {
@@ -113,5 +139,5 @@ function switchToNextPlayer() {
   diceDom.style.display = "none";
 }
 
-// Shine togloom ehluuuleh tovchnii eventlistener
-document.querySelector(".btn-new").addEventListener("click", function () {});
+// New Game : : Shine togloom ehluuuleh tovchnii eventlistener
+document.querySelector(".btn-new").addEventListener("click", initGame);
